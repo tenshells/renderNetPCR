@@ -21,6 +21,8 @@ public class CodingApplication {
 	@Autowired
 	CipherDispatcher cipherDispatcher;
 	
+	@Autowired
+	InfinityInterceptor infinityInterceptor;
 
 	@Autowired
 	PairInfiniteInterceptors infiniteInterceptorPair;
@@ -37,7 +39,16 @@ public class CodingApplication {
 
 	@GetMapping("/intercept")
 	public void intercept(){
+		infinityInterceptor.intercept();
+	}
+
+
+
+	@GetMapping("/interceptPair")
+	public void interceptPair(){
 		infiniteInterceptorPair.startPairIntercept();
 	}
+
+
 
 }

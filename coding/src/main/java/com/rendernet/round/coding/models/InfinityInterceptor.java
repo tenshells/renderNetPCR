@@ -19,6 +19,11 @@ public class InfinityInterceptor {
     int noOfMessages;
 
     @Autowired
+    InfinityInterceptor(){
+        int noOfMessages=0;
+    }
+
+    @Autowired
     CipherDispatcher cipherDispatcher;
 
     public void intercept(){
@@ -42,11 +47,13 @@ public class InfinityInterceptor {
             List<Message> messages = sqs.receiveMessage(rmr).getMessages();
 
             for(Message message : messages){
-                System.out.println("Message  recived is "+message.getBody());
+                System.out.println("Message  reciveddd is "+message.getBody());
                 noOfMessages++;
                 if(noOfMessages%10>=4){
-                    cipherDispatcher.dispatch(message.getBody());
+                    // cipherDispatcher.dispatch(message.getBody());
+                    System.out.println("OUT!");
                 }
+                System.out.println("My "+noOfMessages+"th one !");
                 sqs.deleteMessage(queueUrl,message.getReceiptHandle());
                 
             }
