@@ -39,6 +39,7 @@ public class InfinityInterceptor {
 
             for(Message message : messages){
                 System.out.println("Message  recived is "+message.getBody());
+                sqs.deleteMessage(queueUrl,message.getReceiptHandle());
             }
 
         }
