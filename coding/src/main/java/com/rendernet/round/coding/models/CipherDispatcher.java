@@ -14,6 +14,7 @@ import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.ListQueuesResult;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -42,12 +43,24 @@ public class CipherDispatcher {
 
         String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-queue";
 
-        // Random random = new Random();
+        Random random = new Random();
+        int randomnumber = random.nextInt(10000);
+        String updatedJsonString = "jesus";
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode objectNode = (ObjectNode) mapper.readTree(json);
+            objectNode.put("uid", randomnumber);
+            updatedJsonString = mapper.writeValueAsString(objectNode);
+        } catch(Exception e){
+            System.out.print("Cannot add to string!");
+        }
+
 
         SendMessageRequest send_msg_request = new SendMessageRequest()
         .withQueueUrl(queueUrl)
         .withDelaySeconds(5)
-        .withMessageBody(json);
+        .withMessageBody(updatedJsonString);
         
         System.out.println("Sending "+noOfMessages+"th json");
 
