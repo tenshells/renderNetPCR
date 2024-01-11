@@ -1,0 +1,38 @@
+package com.rendernet.round.services;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class GenerateRandomNumbers {
+    Random random;
+    int min; // Minimum value
+    int max; // Maximum value
+
+    GenerateRandomNumbers(){
+        random = new Random();
+        min = 10; // Minimum value
+        max = 100; // Maximum value
+    }
+
+    Set<Integer> uniqueNumbers = new HashSet<>();
+
+    public int generate(){
+        boolean findagain = true;
+        while (findagain) { 
+            int randomNumber = random.nextInt(max - min + 1) + min;
+            if(!uniqueNumbers.contains(randomNumber)){
+                findagain = false;
+                uniqueNumbers.add(randomNumber);
+                return randomNumber;
+            }
+
+
+        }
+        return 0;
+
+    }
+}

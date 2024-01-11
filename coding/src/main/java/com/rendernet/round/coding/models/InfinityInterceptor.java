@@ -2,6 +2,7 @@ package com.rendernet.round.coding.models;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -16,6 +17,9 @@ import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 @Component
 public class InfinityInterceptor {
     int noOfMessages;
+
+    @Autowired
+    CipherDispatcher cipherDispatcher;
 
     public void intercept(){
         
@@ -39,7 +43,12 @@ public class InfinityInterceptor {
 
             for(Message message : messages){
                 System.out.println("Message  recived is "+message.getBody());
+                noOfMessages++;
+                if(noOfMessages%10>=4){
+                    cipherDispatcher.dispatch(message.getBody());
+                }
                 sqs.deleteMessage(queueUrl,message.getReceiptHandle());
+                
             }
 
         }
