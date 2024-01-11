@@ -1,5 +1,7 @@
 package com.rendernet.round.coding.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.rendernet.round.exception.RequiredFieldMissing;
 
 
 @Component
 public class CipherDispatcher {
-
-    int noOfMessages;
-
-    @Autowired
-    CipherDispatcher(){
-        noOfMessages=0;
-    }
 
     public void dispatch(String json){
 
@@ -50,19 +46,28 @@ public class CipherDispatcher {
         try{
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode objectNode = (ObjectNode) mapper.readTree(json);
+
+            List<String> reqFields = List.of("name","age","height","is_student","grades","address","birth_date","is_employed","salary","skills","achievements");
+
+            for(String field: reqFields){
+                if(objectNode.get(field)==null){
+                    throw new RequiredFieldMissing();
+                }
+            }
+
             objectNode.put("uid", randomnumber);
             updatedJsonString = mapper.writeValueAsString(objectNode);
-        } catch(Exception e){
-            System.out.print("Cannot add to string!");
+        } catch(RequiredFieldMissing e){
+            System.out.println("Required field is missing! ");
+        } 
+        catch(Exception e){
+            System.out.print("String is fishy!");
         }
-
 
         SendMessageRequest send_msg_request = new SendMessageRequest()
         .withQueueUrl(queueUrl)
         .withDelaySeconds(5)
         .withMessageBody(updatedJsonString);
-        
-        System.out.println("Sending "+noOfMessages+"th json");
 
         sqs.sendMessage(send_msg_request);
 
