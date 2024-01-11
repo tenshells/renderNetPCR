@@ -52,9 +52,11 @@ public class CipherDispatcher {
             updatedJsonString = mapper.writeValueAsString(objectNode);
         } catch(RequiredFieldMissing e){
             System.out.println("Required field is missing! ");
+            return;
         } 
         catch(Exception e){
             System.out.print("String is fishy!");
+            return;
         }
 
         SendMessageRequest send_msg_request = new SendMessageRequest()
