@@ -47,7 +47,7 @@ public class CipherDispatcher {
         SendMessageRequest send_msg_request = new SendMessageRequest()
         .withQueueUrl(queueUrl)
         .withDelaySeconds(5)
-        .withMessageBody("json");
+        .withMessageBody(json);
         
         System.out.println("Sending "+noOfMessages+"th json");
 

@@ -32,7 +32,7 @@ public class CodingApplication {
 	}
 
 	@GetMapping("/dispatch")
-	public void dispatch(String jsonBody){
+	public void dispatch(@RequestBody String jsonBody){
 		cipherDispatcher.dispatch(jsonBody);
 	}
 

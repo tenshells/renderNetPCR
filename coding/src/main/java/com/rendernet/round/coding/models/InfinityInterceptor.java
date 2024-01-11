@@ -19,12 +19,14 @@ public class InfinityInterceptor {
     int noOfMessages;
 
     @Autowired
-    InfinityInterceptor(){
-        noOfMessages=0;
-    }
+    CipherDispatcher cipherDispatcher;
 
     @Autowired
-    CipherDispatcher cipherDispatcher;
+    InfinityInterceptor(){
+        noOfMessages=0;
+        cipherDispatcher = new CipherDispatcher();
+    }
+
 
     public void intercept(){
         
