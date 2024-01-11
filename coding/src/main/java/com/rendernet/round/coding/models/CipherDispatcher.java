@@ -22,7 +22,7 @@ public class CipherDispatcher {
 
     public void dispatch(String json){
 
-        AWSCredentials credentials = new BasicAWSCredentials("AKIAZMAW3JF3T6D4K2WV","RG8V8hgAFhl9tcdWpsI/Xm4YL1UT0sjlsqpBswHK");
+        AWSCredentials credentials = new BasicAWSCredentials("ACCESS_KEY","SECRET");
 
 
         AmazonSQS sqs = AmazonSQSClientBuilder.standard()
