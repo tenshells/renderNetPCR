@@ -23,7 +23,7 @@ public class CipherDispatcher {
         .withCredentials(new AWSStaticCredentialsProvider(credentials))
         .build();
 
-        String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-horsey";
+        String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-queue";
 
         SendMessageRequest send_msg_request = new SendMessageRequest()
         .withQueueUrl(queueUrl)

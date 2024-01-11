@@ -27,7 +27,7 @@ public class InfinityInterceptor {
         .withCredentials(new AWSStaticCredentialsProvider(credentials))
         .build();
 
-        String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-horsey";
+        String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-queue";
 
         ReceiveMessageRequest rmr = new ReceiveMessageRequest()
         .withQueueUrl(queueUrl)
