@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rendernet.round.coding.models.CipherDispatcher;
+import com.rendernet.round.coding.models.InfinityInterceptor;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @RestController
@@ -17,6 +18,10 @@ public class CodingApplication {
 
 	@Autowired
 	CipherDispatcher cipherDispatcher;
+	
+
+	@Autowired
+	InfinityInterceptor infinityInterceptor;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CodingApplication.class, args);
@@ -26,5 +31,12 @@ public class CodingApplication {
 	public void dispatch(){
 		cipherDispatcher.dispatch();
 	}
+
+
+	@GetMapping("/intercept")
+	public void intercept(){
+		infinityInterceptor.intercept();
+	}
+
 
 }

@@ -29,7 +29,8 @@ public class CipherDispatcher {
         .withQueueUrl(queueUrl)
         .withMessageBody("hello world")
         .withDelaySeconds(5);
-sqs.sendMessage(send_msg_request);
+        
+        sqs.sendMessage(send_msg_request);
 
         ListQueuesResult result = sqs.listQueues();
         System.out.print(result.toString());
