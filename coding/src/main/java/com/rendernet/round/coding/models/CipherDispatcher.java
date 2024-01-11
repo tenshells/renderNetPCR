@@ -2,6 +2,7 @@ package com.rendernet.round.coding.models;
 
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -20,7 +21,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @Component
 public class CipherDispatcher {
 
+    int noOfMessages;
 
+    @Autowired
+    CipherDispatcher(){
+        noOfMessages=0;
+    }
 
     public void dispatch(String json){
 
@@ -36,26 +42,14 @@ public class CipherDispatcher {
 
         String queueUrl = "https://sqs.us-east-1.amazonaws.com/644293020023/test-queue";
 
-        Random random = new Random();
-        // int randomNo = random.nextInt(10000);
-        
-        // String updatedJsonString = "";                
-        // try {
-        //     ObjectMapper mapper = new ObjectMapper();
-        //     ObjectNode jsonString = (ObjectNode) mapper.readTree(json);
-        //     jsonString.put("uid", randomNo);
-        //     updatedJsonString = mapper.writeValueAsString(jsonString);
-        // } catch (JsonProcessingException e) {
-        //     // TODO Auto-generated catch block
-        //     System.out.println("Error in adding random int");
-        // }
-
+        // Random random = new Random();
 
         SendMessageRequest send_msg_request = new SendMessageRequest()
         .withQueueUrl(queueUrl)
         .withDelaySeconds(5)
-        .withMessageBody(json);
+        .withMessageBody("json");
         
+        System.out.println("Sending "+noOfMessages+"th json");
 
         sqs.sendMessage(send_msg_request);
 

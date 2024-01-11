@@ -20,7 +20,7 @@ public class InfinityInterceptor {
 
     @Autowired
     InfinityInterceptor(){
-        int noOfMessages=0;
+        noOfMessages=0;
     }
 
     @Autowired
@@ -50,7 +50,7 @@ public class InfinityInterceptor {
                 System.out.println("Message  reciveddd is "+message.getBody());
                 noOfMessages++;
                 if(noOfMessages%10>=4){
-                    // cipherDispatcher.dispatch(message.getBody());
+                    cipherDispatcher.dispatch(message.getBody());
                     System.out.println("OUT!");
                 }
                 System.out.println("My "+noOfMessages+"th one !");
