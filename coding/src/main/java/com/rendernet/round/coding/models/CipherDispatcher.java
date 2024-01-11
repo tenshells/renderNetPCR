@@ -1,10 +1,8 @@
 package com.rendernet.round.coding.models;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -13,10 +11,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.ListQueuesResult;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.rendernet.round.exception.RequiredFieldMissing;
@@ -26,8 +21,6 @@ import com.rendernet.round.exception.RequiredFieldMissing;
 public class CipherDispatcher {
 
     public void dispatch(String json){
-
-        //validate string
 
         AWSCredentials credentials = new BasicAWSCredentials("AKIAZMAW3JF3T6D4K2WV","RG8V8hgAFhl9tcdWpsI/Xm4YL1UT0sjlsqpBswHK");
 
@@ -70,9 +63,6 @@ public class CipherDispatcher {
         .withMessageBody(updatedJsonString);
 
         sqs.sendMessage(send_msg_request);
-
-        // ListQueuesResult result = sqs.listQueues();
-        // System.out.print(result.toString());
 
     }
 }
